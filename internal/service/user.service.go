@@ -12,6 +12,10 @@ func NewUserService() *UserService {
 	}
 }
 
-func (us *UserService) GetInfoUserByID(id string) string {
-	return us.userRepo.GetInfoUserByID(id)
+func (us *UserService) GetInfoUserByID(id string) (string, error) {
+	result := us.userRepo.GetInfoUserByID(id)
+	if result == "" { // Assuming an empty string indicates no user found or an error
+		return "", nil // or return "", errors.New("user not found") to indicate an error
+	}
+	return result, nil
 }
